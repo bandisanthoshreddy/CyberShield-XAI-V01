@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CyberShield — Multilingual Cyberbullying Detection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07080d;--bg2:#0d0f18;--bg3:#12152a;
+  --sur:#161a2e;--sur2:#1e2245;
+  --b:rgba(100,115,210,.13);--b2:rgba(100,115,210,.24);
+  --acc:#6d7fff;--acc2:#a78bfa;
+  --teal:#2dd4bf;--red:#f87171;--amb:#fbbf24;--grn:#34d399;--org:#fb923c;
+  --txt:#eef0ff;--txt2:#9ba3cf;--txt3:#4e5680;
+  --fh:'Syne',sans-serif;--fb:'DM Sans',sans-serif;
+  --r:12px;--rl:20px;--sh:0 4px 40px rgba(0,0,0,.55)
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--fb);font-size:15px;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:var(--fb);border:none;outline:none}
+h1,h2,h3,h4{font-family:var(--fh);font-weight:700;line-height:1.15}
+.container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(7,8,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--b)}
+.nav-i{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:58px;display:flex;align-items:center;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.5rem;font-family:var(--fh);font-weight:800;font-size:1.1rem}
+.logo-hex{font-size:1.35rem;color:var(--acc)}
+.nav-links{display:flex;gap:1.5rem;margin-left:auto}
+.nav-link{color:var(--txt2);font-size:.88rem;transition:color .2s}
+.nav-link:hover{color:var(--txt)}
+.lbadges{display:flex;gap:.35rem;margin-left:.75rem}
+.lb{font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid var(--b2);color:var(--txt3)}
+.lb.en{border-color:rgba(109,127,255,.45);color:var(--acc)}
+.lb.hi{border-color:rgba(251,191,36,.45);color:var(--amb)}
+.lb.te{border-color:rgba(45,212,191,.45);color:var(--teal)}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 1.5rem 60px;text-align:center;overflow:hidden}
+.hbg{position:absolute;inset:0;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(130px);opacity:.16}
+.o1{width:650px;height:650px;background:var(--acc);top:-180px;left:-120px}
+.o2{width:500px;height:500px;background:var(--acc2);bottom:-100px;right:-100px}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(109,127,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(109,127,255,.035) 1px,transparent 1px);background-size:64px 64px}
+.hc{position:relative;z-index:1;max-width:760px}
+.htag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--acc);border:1px solid rgba(109,127,255,.32);padding:4px 14px;border-radius:99px;margin-bottom:1.5rem;font-family:var(--fh)}
+.htitle{font-size:clamp(2.4rem,6vw,4.2rem);margin-bottom:1rem}
+.hacc{color:var(--acc)}
+.hsub{font-size:1.05rem;color:var(--txt2);max-width:520px;margin:0 auto 2.5rem}
+.hstats{display:flex;justify-content:center;align-items:center;gap:1.5rem;margin-bottom:2.5rem}
+.stat{text-align:center}
+.sn{display:block;font-family:var(--fh);font-size:1.9rem;font-weight:800;color:var(--acc)}
+.sl{font-size:.72rem;color:var(--txt3);text-transform:uppercase;letter-spacing:.1em}
+.sdiv{width:1px;height:42px;background:var(--b2)}
+.btn-cta{display:inline-block;background:var(--acc);color:#fff;font-family:var(--fh);font-weight:700;font-size:.95rem;padding:.8rem 2.2rem;border-radius:var(--r);box-shadow:0 0 28px rgba(109,127,255,.38);transition:all .2s}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(109,127,255,.55)}
+
+/* ── SECTIONS ── */
+.sec{padding:80px 0}
+.sec-alt{background:var(--bg2);border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+.sec-hd{text-align:center;margin-bottom:3rem}
+.sec-title{font-size:clamp(1.6rem,4vw,2.3rem);margin-bottom:.55rem}
+.sec-sub{color:var(--txt2);font-size:.95rem}
+
+/* ── CARD ── */
+.card{background:var(--sur);border:1px solid var(--b);border-radius:var(--rl);padding:2rem;box-shadow:var(--sh)}
+
+/* ── INPUT ── */
+.inp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.55rem}
+.inp-lbl{font-family:var(--fh);font-size:.82rem;color:var(--txt2);font-weight:600}
+.cc{font-size:.78rem;color:var(--txt3)}
+textarea.tinput{width:100%;background:var(--bg2);border:1px solid var(--b2);border-radius:var(--r);color:var(--txt);font-family:var(--fb);font-size:.95rem;line-height:1.65;padding:1rem 1.2rem;resize:vertical;min-height:145px;transition:border-color .2s;outline:none}
+textarea.tinput:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(109,127,255,.11)}
+textarea.tinput::placeholder{color:var(--txt3)}
+
+/* ── SAMPLES ── */
+.samples{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem;margin-top:1rem}
+.slbl{font-size:.78rem;color:var(--txt3)}
+.sbtn{font-size:.74rem;padding:3px 12px;border-radius:99px;background:var(--bg3);border:1px solid var(--b2);color:var(--txt2);transition:all .15s}
+.sbtn:hover{background:var(--sur2);color:var(--txt);border-color:var(--acc)}
+
+/* ── XAI OPTS ── */
+.xopts{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;margin-top:1.2rem}
+.xolbl{font-size:.83rem;color:var(--txt3)}
+.xtog{display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.83rem;color:var(--txt2)}
+.xtog input{accent-color:var(--acc);width:14px;height:14px}
+.xtog small{color:var(--txt3)}
+
+/* ── ANALYSE BTN ── */
+.btn-go{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-top:1.5rem;width:100%;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-family:var(--fh);font-size:1rem;font-weight:700;padding:.9rem 2rem;border-radius:var(--r);transition:all .2s;box-shadow:0 4px 22px rgba(109,127,255,.32)}
+.btn-go:hover{opacity:.9;transform:translateY(-1px)}
+.btn-go:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* ── DEMO BADGE ── */
+.demo-banner{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.22);border-radius:var(--r);margin-bottom:1.5rem;font-size:.83rem;color:var(--amb)}
+.demo-dot{width:8px;height:8px;border-radius:50%;background:var(--amb);flex-shrink:0;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+
+/* ── LOADING ── */
+.loading{display:none;flex-direction:column;align-items:center;gap:1rem;padding:2.5rem 0}
+.ring{width:44px;height:44px;border-radius:50%;border:3px solid var(--b2);border-top-color:var(--acc);animation:spin .75s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ltxt{color:var(--txt2);font-size:.88rem}
+
+/* ── RESULTS ── */
+.results{display:none;margin-top:2rem;animation:fadeup .3s ease}
+@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* verdict */
+.verdict{display:flex;align-items:center;gap:1rem;padding:1.15rem 1.5rem;border-radius:var(--r);border:1px solid var(--b);margin-bottom:2rem;background:var(--bg3)}
+.vic{font-size:1.8rem;flex-shrink:0}
+.vinfo{flex:1}
+.vlbl{font-family:var(--fh);font-size:1.1rem;font-weight:700;text-transform:capitalize}
+.vconf{font-size:.82rem;color:var(--txt2)}
+.vlang{font-size:.72rem;color:var(--txt3);background:var(--sur2);padding:3px 10px;border-radius:99px}
+.vms{font-size:.72rem;color:var(--txt3)}
+
+/* prob bars */
+.rh{font-family:var(--fh);font-size:.92rem;font-weight:600;color:var(--txt2);margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+.rbadge{font-size:.68rem;padding:2px 10px;border-radius:99px;background:var(--sur2);color:var(--txt3);font-family:var(--fb);font-weight:400}
+.rdesc{font-size:.82rem;color:var(--txt3);margin-bottom:1rem;margin-top:-.4rem}
+.pbars{display:flex;flex-direction:column;gap:.6rem}
+.prow{display:grid;grid-template-columns:130px 1fr 50px;align-items:center;gap:.7rem}
+.pname{font-size:.8rem;color:var(--txt2);text-align:right;text-transform:capitalize}
+.ptrack{background:var(--bg3);border-radius:99px;height:8px;overflow:hidden}
+.pfill{height:100%;border-radius:99px;transition:width .65s cubic-bezier(.23,1,.32,1)}
+.ppct{font-size:.78rem;color:var(--txt3);font-family:var(--fh);text-align:right}
+
+/* xai sections */
+.xsec{border-top:1px solid var(--b);padding-top:1.5rem;margin-top:1.5rem;animation:fadeup .25s ease}
+.thmap{display:flex;flex-wrap:wrap;gap:.3rem;padding:.6rem 0}
+.tchip{display:inline-block;padding:3px 9px;border-radius:6px;font-size:.87rem;cursor:default}
+.tchip:hover{transform:scale(1.06);transition:transform .1s}
+.lchart{display:flex;flex-direction:column;gap:.5rem}
+.lrow{display:grid;grid-template-columns:120px 1fr 56px;align-items:center;gap:.7rem}
+.lword{font-size:.8rem;color:var(--txt);text-align:right;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ltrack{background:var(--bg3);border-radius:99px;height:10px;overflow:visible;position:relative}
+.lzero{position:absolute;left:50%;top:0;height:100%;width:1px;background:var(--b2)}
+.lbar{position:absolute;top:0;height:100%;border-radius:99px;transition:width .55s ease}
+.lval{font-size:.76rem;color:var(--txt3);font-family:var(--fh)}
+
+/* ── BATCH ── */
+.batch-res{margin-top:1.5rem;display:flex;flex-direction:column;gap:.45rem}
+.brow{display:flex;align-items:center;gap:.9rem;padding:.7rem 1rem;border-radius:var(--r);background:var(--bg3);border:1px solid var(--b);font-size:.86rem;animation:fadeup .2s ease}
+.bbadge{flex-shrink:0;font-size:.7rem;font-weight:700;padding:2px 10px;border-radius:99px;text-transform:capitalize;font-family:var(--fh)}
+.btxt{flex:1;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bconf{font-size:.76rem;color:var(--txt3);flex-shrink:0}
+.bnum{color:var(--txt3);font-size:.73rem;flex-shrink:0}
+
+/* ── ABOUT ── */
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+@media(max-width:768px){.agrid{grid-template-columns:1fr;gap:2.5rem}}
+.steps{display:flex;flex-direction:column;gap:1.5rem}
+.step{display:flex;gap:1rem}
+.snum{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:.78rem;font-weight:800;color:#fff}
+.sinfo strong{display:block;margin-bottom:.3rem;font-family:var(--fh);font-size:.92rem}
+.sinfo p{font-size:.83rem;color:var(--txt2)}
+.acards{display:flex;flex-direction:column;gap:1rem}
+.acard{background:var(--sur);border:1px solid var(--b);border-radius:var(--r);padding:1.4rem;transition:border-color .2s}
+.acard:hover{border-color:var(--b2)}
+.aicon{font-size:1.3rem;margin-bottom:.55rem}
+.acard h4{font-family:var(--fh);font-size:.92rem;margin-bottom:.4rem}
+.acard p{font-size:.8rem;color:var(--txt2)}
+
+/* ── FOOTER ── */
+.footer{padding:2rem 0;border-top:1px solid var(--b)}
+.fi{display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.fn{font-size:.78rem;color:var(--txt3)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:300;background:var(--sur2);border:1px solid var(--b2);color:var(--txt);padding:.7rem 1.2rem;border-radius:var(--r);font-size:.86rem;box-shadow:var(--sh);pointer-events:none;animation:fadeup .2s ease}
+
+/* ── UTILS ── */
+.bully{border-left:3px solid var(--red)!important}
+.safe{border-left:3px solid var(--grn)!important}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-i">
+    <div class="logo"><span class="logo-hex">⬡</span> CyberShield</div>
+    <div class="nav-links">
+      <a href="#detector" class="nav-link">Detector</a>
+      <a href="#batch" class="nav-link">Batch</a>
+      <a href="#about" class="nav-link">About</a>
+    </div>
+    <div class="lbadges">
+      <span class="lb en">EN</span>
+      <span class="lb hi">हि</span>
+      <span class="lb te">తె</span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hbg">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="grid-bg"></div>
+  </div>
+  <div class="hc">
+    <div class="htag">XAI-Powered Detection</div>
+    <h1 class="htitle">Detect Cyberbullying<br/><span class="hacc">Across Languages</span></h1>
+    <p class="hsub">MuRIL transformer with SHAP, LIME &amp; Attention explainability — English · Hindi · Telugu</p>
+    <div class="hstats">
+      <div class="stat"><span class="sn">5</span><span class="sl">Categories</span></div>
+      <div class="sdiv"></div>
+      <div class="stat"><span class="sn">3</span><span class="sl">Languages</span></div>
+      <div class="sdiv"></div>
+      <div class="stat"><span class="sn">XAI</span><span class="sl">Explainable</span></div>
+    </div>
+    <a href="#detector" class="btn-cta">Try the Detector ↓</a>
+  </div>
+</header>
+
+<!-- DETECTOR -->
+<section class="sec" id="detector">
+  <div class="container">
+    <div class="sec-hd">
+      <h2 class="sec-title">Analyse Text</h2>
+      <p class="sec-sub">Paste any social media comment or message below.</p>
+    </div>
+    <div class="card">
+
+      <div class="demo-banner">
+        <div class="demo-dot"></div>
+        <span><strong>Demo mode</strong> — running with a mock model. Real predictions available after training MuRIL (see README).</span>
+      </div>
+
+      <div class="inp-top">
+        <span class="inp-lbl">Input Text</span>
+        <div class="cc"><span id="cc">0</span> / 1000</div>
+      </div>
+      <textarea id="itext" class="tinput" maxlength="1000"
+        placeholder="Type or paste text in English, Hindi or Telugu…
+e.g. You are such a loser, nobody likes you!
+e.g. तुम बहुत बेकार हो
+e.g. నీవు చాలా చెడ్డవాడివి"></textarea>
+
+      <div class="samples">
+        <span class="slbl">Try sample:</span>
+        <button class="sbtn" data-t="You are such a loser, nobody likes you!">EN Insult</button>
+        <button class="sbtn" data-t="I will find you and hurt you if you keep posting.">EN Threat</button>
+        <button class="sbtn" data-t="These people are enemies of our country and religion.">EN Hate</button>
+        <button class="sbtn" data-t="तुम बहुत बेवकूफ हो, कोई तुम्हें पसंद नहीं करता">HI Insult</button>
+        <button class="sbtn" data-t="మైं तुम्हें नुकसान पहुंचाऊंगा अगर post किया तो">HI Threat</button>
+        <button class="sbtn" data-t="నీవు చాలా చెడ్డవాడివి అందరూ నిన్ను ద్వేషిస్తారు">TE Insult</button>
+        <button class="sbtn" data-t="Have a wonderful day! Stay kind to everyone.">Safe ✓</button>
+      </div>
+
+      <div class="xopts">
+        <span class="xolbl">XAI Methods:</span>
+        <label class="xtog"><input type="checkbox" id="x-att" checked/><span>Attention</span></label>
+        <label class="xtog"><input type="checkbox" id="x-lime" checked/><span>LIME</span></label>
+        <label class="xtog"><input type="checkbox" id="x-shap"/><span>SHAP <small>(slower)</small></span></label>
+      </div>
+
+      <button class="btn-go" id="btn-go" onclick="analyse()">
+        <span>⬡</span> Analyse Text
+        <span style="font-size:.8rem;opacity:.7;font-weight:400">Ctrl+Enter</span>
+      </button>
+
+      <div class="loading" id="loading">
+        <div class="ring"></div>
+        <p class="ltxt" id="ltxt">Analysing…</p>
+      </div>
+
+      <div class="results" id="results">
+        <!-- verdict -->
+        <div class="verdict" id="verdict">
+          <div class="vic" id="vic"></div>
+          <div class="vinfo">
+            <div class="vlbl" id="vlbl"></div>
+            <div class="vconf" id="vconf"></div>
+          </div>
+          <div class="vlang" id="vlang"></div>
+          <div class="vms" id="vms"></div>
+        </div>
+        <!-- probs -->
+        <div style="margin-bottom:2rem">
+          <div class="rh">Class Probabilities</div>
+          <div class="pbars" id="pbars"></div>
+        </div>
+        <!-- attention -->
+        <div class="xsec" id="xatt" style="display:none">
+          <div class="rh">Attention Heatmap <span class="rbadge">Transformer Attention</span></div>
+          <p class="rdesc">Darker tokens received higher attention from the classification token.</p>
+          <div class="thmap" id="atttokens"></div>
+        </div>
+        <!-- lime -->
+        <div class="xsec" id="xlime" style="display:none">
+          <div class="rh">LIME Feature Importance <span class="rbadge">Local Explanation</span></div>
+          <p class="rdesc">Words pushing prediction toward (red) or away from (green) the detected class.</p>
+          <div class="lchart" id="limechart"></div>
+        </div>
+        <!-- shap -->
+        <div class="xsec" id="xshap" style="display:none">
+          <div class="rh">SHAP Values <span class="rbadge">Shapley Values</span></div>
+          <p class="rdesc">Game-theory attribution of each word's contribution to the prediction.</p>
+          <div class="lchart" id="shapchart"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BATCH -->
+<section class="sec sec-alt" id="batch">
+  <div class="container">
+    <div class="sec-hd">
+      <h2 class="sec-title">Batch Analysis</h2>
+      <p class="sec-sub">Analyse multiple comments at once — one per line (max 50).</p>
+    </div>
+    <div class="card">
+      <textarea id="bitext" class="tinput" rows="8" placeholder="Enter one comment per line:
+You are worthless!
+Have a nice day.
+तुम बेकार हो
+నీవు చెడ్డవాడివి
+I will hurt you if you post again."></textarea>
+      <button class="btn-go" style="margin-top:1rem" onclick="batchAnalyse()">
+        <span>⬡</span> Analyse All
+      </button>
+      <div class="batch-res" id="bres" style="display:none"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="container">
+    <div class="agrid">
+      <div>
+        <div class="sec-hd" style="text-align:left;margin-bottom:2rem">
+          <h2 class="sec-title">How It Works</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="snum">01</div>
+            <div class="sinfo">
+              <strong>Language detection + normalisation</strong>
+              <p>Input is identified as EN/HI/TE and normalised using IndicNLP for Devanagari and Telugu scripts, handling code-mixing.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="snum">02</div>
+            <div class="sinfo">
+              <strong>MuRIL transformer</strong>
+              <p>Google's Multilingual Representations for Indian Languages model, fine-tuned on labelled cyberbullying data across all three languages with Focal Loss.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="snum">03</div>
+            <div class="sinfo">
+              <strong>XAI explanations</strong>
+              <p>Attention heatmaps, LIME local perturbations, and SHAP Shapley values highlight exactly <em>why</em> the model flagged the text.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="snum">04</div>
+            <div class="sinfo">
+              <strong>Prevention actions</strong>
+              <p>Based on label and confidence, the system recommends: warn the poster, flag for review, or auto-remove high-severity content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="acards">
+        <div class="acard">
+          <div class="aicon">🔬</div>
+          <h4>Model architecture</h4>
+          <p>MuRIL-base-cased (12-layer BERT) fine-tuned with Focal Loss (γ=2.0) and class weights across 5 cyberbullying categories.</p>
+        </div>
+        <div class="acard">
+          <div class="aicon">🌐</div>
+          <h4>Multilingual support</h4>
+          <p>English, Hindi (Devanagari + Romanized), Telugu (native + code-mixed Tenglish) — single unified model.</p>
+        </div>
+        <div class="acard">
+          <div class="aicon">💡</div>
+          <h4>Explainability</h4>
+          <p>SHAP (exact attribution), LIME (local perturbations), and Transformer Attention maps — three perspectives on every decision.</p>
+        </div>
+        <div class="acard">
+          <div class="aicon">🛡️</div>
+          <h4>Prevention layer</h4>
+          <p>REST API enables real-time integration with social media platforms to flag, warn, or block harmful content before it reaches victims.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="fi">
+      <div class="logo"><span class="logo-hex">⬡</span> CyberShield</div>
+      <p class="fn">Senior Design Project — Multi-Linguistic Cyberbullying Detection using XAI</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const LMETA = {
+  not_bullying:{ icon:'✅', color:'#34d399', bg:'rgba(52,211,153,.1)',  label:'Safe Content'    },
+  insult:      { icon:'⚠️', color:'#fbbf24', bg:'rgba(251,191,36,.1)',  label:'Insult Detected' },
+  threat:      { icon:'🚨', color:'#f87171', bg:'rgba(248,113,113,.1)', label:'Threat Detected' },
+  hate_speech: { icon:'🚫', color:'#a78bfa', bg:'rgba(167,139,250,.1)', label:'Hate Speech'     },
+  harassment:  { icon:'⛔', color:'#fb923c', bg:'rgba(251,146,60,.1)',  label:'Harassment'      },
+};
+const LLANG = { en:'English 🇬🇧', hi:'Hindi 🇮🇳', te:'Telugu 🇮🇳' };
+
+// char counter
+document.getElementById('itext').addEventListener('input',function(){
+  document.getElementById('cc').textContent = this.value.length;
+});
+
+// sample buttons
+document.querySelectorAll('.sbtn').forEach(b => b.addEventListener('click',()=>{
+  const ta = document.getElementById('itext');
+  ta.value = b.dataset.t;
+  document.getElementById('cc').textContent = ta.value.length;
+  ta.focus();
+}));
+
+// Ctrl+Enter
+document.getElementById('itext').addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key==='Enter') analyse();
+});
+
+// loading messages
+const MSGS = ['Tokenising input…','Running MuRIL transformer…','Computing attention weights…','Generating LIME explanation…','Assembling results…'];
+let msgIdx = 0, msgTimer;
+
+async function analyse() {
+  const text = document.getElementById('itext').value.trim();
+  if (!text) { toast('Please enter some text.'); return; }
+
+  const methods = [];
+  if(document.getElementById('x-att').checked)  methods.push('attention');
+  if(document.getElementById('x-lime').checked) methods.push('lime');
+  if(document.getElementById('x-shap').checked) methods.push('shap');
+
+  setLoading(true);
+  document.getElementById('results').style.display = 'none';
+
+  msgIdx = 0;
+  msgTimer = setInterval(()=>{
+    document.getElementById('ltxt').textContent = MSGS[Math.min(msgIdx++, MSGS.length-1)];
+  }, 700);
+
+  try {
+    const r = await fetch('/api/predict',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({text, include_xai:true, xai_methods:methods})
+    });
+    if(!r.ok) throw new Error((await r.json()).detail||'Server error');
+    const d = await r.json();
+    renderResults(d);
+  } catch(e) {
+    toast('Error: '+e.message);
+  } finally {
+    clearInterval(msgTimer);
+    setLoading(false);
+  }
+}
+
+function renderResults(d) {
+  const m = LMETA[d.label] || LMETA.not_bullying;
+
+  // verdict
+  const vd = document.getElementById('verdict');
+  vd.style.background   = m.bg;
+  vd.style.borderColor  = m.color+'55';
+  vd.classList.toggle('bully', d.is_bullying);
+  vd.classList.toggle('safe',  !d.is_bullying);
+  document.getElementById('vic').textContent  = m.icon;
+  document.getElementById('vlbl').textContent = m.label;
+  document.getElementById('vlbl').style.color = m.color;
+  document.getElementById('vconf').textContent= 'Confidence: '+(d.confidence*100).toFixed(1)+'%';
+  document.getElementById('vlang').textContent= LLANG[d.lang]||d.lang||'';
+  document.getElementById('vms').textContent  = d.latency_ms+'ms';
+
+  // prob bars
+  const pb = document.getElementById('pbars');
+  pb.innerHTML = '';
+  const sorted = Object.entries(d.probabilities).sort((a,b)=>b[1]-a[1]);
+  sorted.forEach(([lbl,pct])=>{
+    const mc = LMETA[lbl]||{};
+    const p  = (pct*100).toFixed(1);
+    pb.innerHTML += `<div class="prow">
+      <div class="pname">${lbl.replace('_',' ')}</div>
+      <div class="ptrack"><div class="pfill" style="width:0%;background:${mc.color||'#6d7fff'}" data-w="${p}"></div></div>
+      <div class="ppct">${p}%</div></div>`;
+  });
+  setTimeout(()=>document.querySelectorAll('.pfill').forEach(e=>e.style.width=e.dataset.w+'%'),50);
+
+  const xai = d.xai||{};
+
+  // attention
+  const xatt = document.getElementById('xatt');
+  if(xai.attention?.tokens?.length) {
+    renderAttention(xai.attention.tokens);
+    xatt.style.display='block';
+  } else xatt.style.display='none';
+
+  // lime
+  const xl = document.getElementById('xlime');
+  if(xai.lime?.top_features?.length) {
+    renderBars(xai.lime.top_features, 'limechart', 'weight');
+    xl.style.display='block';
+  } else xl.style.display='none';
+
+  // shap
+  const xs = document.getElementById('xshap');
+  if(xai.shap?.top_features?.length) {
+    renderBars(xai.shap.top_features, 'shapchart', 'shap_value');
+    xs.style.display='block';
+  } else xs.style.display='none';
+
+  const res = document.getElementById('results');
+  res.style.display='block';
+  res.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function renderAttention(tokens) {
+  const el  = document.getElementById('atttokens');
+  const max = Math.max(...tokens.map(t=>t.score), 0.001);
+  el.innerHTML = tokens.map(t=>{
+    const n = t.score/max;
+    const a = (0.08+n*0.72).toFixed(2);
+    const l = Math.round(235-n*175);
+    return `<span class="tchip" style="background:rgba(109,127,255,${a});color:rgb(${l},${l},${Math.round(l*1.05)});border:1px solid rgba(109,127,255,${(n*.45).toFixed(2)})" title="${(t.score*100).toFixed(0)}% attention">${t.token}</span>`;
+  }).join('');
+}
+
+function renderBars(features, id, key) {
+  const el  = document.getElementById(id);
+  const max = Math.max(...features.map(f=>Math.abs(f[key]||0)),0.001);
+  el.innerHTML = features.map(f=>{
+    const v   = f[key]||0;
+    const pct = Math.abs(v)/max*47;
+    const pos = v>0;
+    const col = id==='shapchart' ? (pos?'#a78bfa':'#2dd4bf') : (pos?'#f87171':'#34d399');
+    const left= pos?'50%':`${50-pct}%`;
+    const word= f.token||f.word||'?';
+    return `<div class="lrow">
+      <div class="lword" title="${word}">${word}</div>
+      <div class="ltrack">
+        <div class="lzero"></div>
+        <div class="lbar" style="left:${left};width:${pct}%;background:${col}"></div>
+      </div>
+      <div class="lval" style="color:${col}">${v>0?'+':''}${v.toFixed(3)}</div>
+    </div>`;
+  }).join('');
+}
+
+async function batchAnalyse() {
+  const texts = document.getElementById('bitext').value.trim().split('\n').map(t=>t.trim()).filter(Boolean);
+  if(!texts.length){ toast('Enter at least one text.'); return; }
+  const br = document.getElementById('bres');
+  br.style.display='flex';
+  br.innerHTML='<div class="ring" style="margin:.5rem auto"></div>';
+  try {
+    const r = await fetch('/api/batch',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({texts})
+    });
+    if(!r.ok) throw new Error((await r.json()).detail);
+    const d = await r.json();
+    br.innerHTML = d.results.map((row,i)=>{
+      const m = LMETA[row.label]||LMETA.not_bullying;
+      return `<div class="brow ${row.is_bullying?'bully':'safe'}">
+        <span class="bnum">#${i+1}</span>
+        <span class="bbadge" style="background:${m.bg};color:${m.color};border:1px solid ${m.color}44">${m.icon} ${row.label.replace('_',' ')}</span>
+        <span class="btxt">${esc(row.text)}</span>
+        <span class="bconf">${(row.confidence*100).toFixed(0)}%</span>
+      </div>`;
+    }).join('') + `<div style="text-align:center;font-size:.8rem;color:var(--txt3);padding:.5rem">${d.flagged} of ${d.total} flagged</div>`;
+  } catch(e) {
+    br.innerHTML=`<p style="color:var(--red);font-size:.86rem;padding:.5rem">Error: ${e.message}</p>`;
+  }
+}
+
+function setLoading(on) {
+  document.getElementById('loading').style.display = on?'flex':'none';
+  document.getElementById('btn-go').disabled = on;
+}
+function toast(msg) {
+  const t = document.createElement('div');
+  t.className='toast'; t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
+}
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
+</body>
+</html>
